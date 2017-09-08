@@ -121,7 +121,7 @@ $(document).ready(function () {
 
 
 <div id="filtering-rows-and-columns" class="section level2">
-<h2>Filtering Rows and Columns</h2>
+<h2>Filtering Rows and Columns:</h2>
 <p>In SQL you can filter columns by using SELECT and rows by using WHERE.Let’s look at an example using the Lahman baseball database. First we should load the Lahman package. We will also need the sqldf package.</p>
 <pre class="r"><code>library(Lahman)
 library(sqldf)</code></pre>
@@ -159,7 +159,7 @@ sqldf(query)</code></pre>
 <div id="baseball-examples" class="section level2">
 <h2>Baseball Examples:</h2>
 <div id="sql" class="section level3">
-<h3>SQL</h3>
+<h3>SQL:</h3>
 <p>If one wants to find the specific codes of words for Batting they would use ‘colnames(Batting)’. In these examples, SQL is being used. First one needs to load these packages:</p>
 <pre class="r"><code>library(Lahman)
 
@@ -251,7 +251,7 @@ sqldf(query)</code></pre>
 ## 9 schmimi01    PHI   1979 45</code></pre>
 </div>
 <div id="order-by" class="section level3">
-<h3>ORDER BY</h3>
+<h3>ORDER BY:</h3>
 <p>With SQL, we can also order the rows in the output. For example, suppose you wanted to find every instance of a player hitting more than fifty homeruns. Suppose you want to have the players with the highest homeruns at the top, you can do this the following way:</p>
 <pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR FROM Batting
 WHERE HR&gt;50 ORDER BY HR DESC&quot;
