@@ -1,5 +1,5 @@
 ---
-title: "SQL"
+title: "Data Science"
 output: html_document
 ---
 
@@ -91,10 +91,38 @@ sqldf(query)
 
 ```
 
+##Aggregation
 
+Aggregation includes summing up (sum), taking the maximum (max) or minimum (min), or averaging(avg) certain categories by grouping them. One can do this by using GROUP BY, then choosing what they would like to do with the catergory or categories. If one was to also use ORDER BY, this function would be listed afterwards in the R Code in the quotations. WHERE is used when filtering categories before you group, however HAVING is used after you group.
 
+###Aggregation Examples
 
+Find the career homerun totals for Babe Ruth.
 
+```{r message=FALSE,warning=FALSE}
+
+query<-"SELECT playerID,sum(HR) FROM Batting WHERE playerID='ruthba01' GROUP BY playerID"
+sqldf(query)
+
+```
+
+Find the career homerun totals for all players, but list only those with a total of 600 or more. Order by having greatest total at the top.
+
+```{r message=FALSE,warning=FALSE}
+
+query<-"SELECT playerID,sum(HR) FROM Batting GROUP BY playerID HAVING sum(HR)>=600 ORDER BY sum(HR) DESC"
+sqldf(query)
+
+```
+
+What players have the highest average per season homerun totals? List only averages greater than thirty.
+
+```{r message=FALSE,warning=FALSE}
+
+query<-"SELECT playerID,avg(HR) FROM Batting GROUP BY playerID HAVING avg(HR)>30 ORDER BY avg(HR) DESC"
+sqldf(query)
+
+```
 
 
 
