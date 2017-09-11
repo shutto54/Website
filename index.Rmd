@@ -21,9 +21,8 @@ sqldf(query)
 
 ```
 
-##Baseball Examples
+###More Examples of SQL
 
-###SQL
 
 If one wants to find the specific codes of words for Batting they would use 'colnames(Batting)'. In these examples, SQL is being used. First one needs to load these packages:
 
@@ -70,16 +69,34 @@ sqldf(query)
 ```
 
 
-###ORDER BY
+##Order By
 
-With SQL, we can also order the rows in the output. For example, suppose you wanted to find every instance of a player hitting more than fifty homeruns. Suppose you want to have the players with the highest homeruns at the top, you can do this the following way:
+With SQL, we can also order the rows in the output by using ORDER BY. For example, suppose you wanted to find every instance of a player hitting more than fifty homeruns. Suppose you want to have the players with the highest homeruns at the top, you can do this the following way:
 
-```{r}
+```{r message=FALSE,warning=FALSE}
 query<-"SELECT playerID,teamID,yearID,HR FROM Batting
 WHERE HR>50 ORDER BY HR DESC"
 sqldf(query)
 
 ```
+
+###More Examples of Order By
+
+Find all instances of a player striking out less than ten times. Make sure each player has atleast 400 at-bats(AB). Order them by the least strike outs to the most.
+
+```{r message=FALSE,warning=FALSE}
+
+query<-"SELECT playerID,teamID,yearID,SO,AB FROM Batting WHERE SO<10 and AB>=400 ORDER BY SO"
+sqldf(query)
+
+```
+
+
+
+
+
+
+
 
 
 
