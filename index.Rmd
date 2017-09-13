@@ -124,7 +124,36 @@ sqldf(query)
 
 ```
 
+##Joins
 
+###Examples of Joins
+
+Get the first and last names, along with teamID, yearID, HR, and have the player be Babe Ruth
+
+```{r message=FALSE,warning=FALSE}
+
+query<-"SELECT nameFirst,nameLast,teamID,yearID,HR FROM Batting INNER JOIN Master ON Batting.playerID=Master.playerID WHERE Batting.playerID='ruthba01'"
+sqldf(query)
+
+```
+
+Find all instances of players hitting more than fifty homeruns. Include first and last names, the team, the year, and the homeruns.
+
+```{r message=FALSE,warning=FALSE}
+
+query<-"SELECT nameFirst,nameLast,teamID,yearID,HR FROM Batting INNER JOIN Master ON Batting.playerID=Master.playerID WHERE HR>50 ORDER BY HR DESC"
+sqldf(query)
+
+```
+
+Babe Ruth, with playerID, team name, yearID, and HR.
+
+```{r message=FALSE,warning=FALSE}
+
+query<-"SELECT playerID,name,Batting.yearID,Batting.HR FROM Batting INNER JOIN Teams ON Batting.teamID=Teams.teamID and Batting.yearID=Teams.yearID WHERE playerID='ruthba01'"
+sqldf(query)
+
+```
 
 
 
