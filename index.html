@@ -501,6 +501,59 @@ sqldf(query)</code></pre>
 ## 20 ruthba01 New York Yankees   1933 34
 ## 21 ruthba01 New York Yankees   1934 22
 ## 22 ruthba01    Boston Braves   1935  6</code></pre>
+<p>Babe Ruth, with first/last name, name (of the team), yearID, and HR.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT nameFirst,nameLast,name,Batting.yearID,Batting.HR FROM (Batting INNER JOIN Master ON Batting.playerID=Master.playerID) INNER JOIN Teams ON Batting.teamID=Teams.teamID and Batting.yearID=Teams.yearID WHERE Batting.playerID='ruthba01'&quot;
+sqldf(query)</code></pre>
+<pre><code>##    nameFirst nameLast             name yearID HR
+## 1       Babe     Ruth   Boston Red Sox   1914  0
+## 2       Babe     Ruth   Boston Red Sox   1915  4
+## 3       Babe     Ruth   Boston Red Sox   1916  3
+## 4       Babe     Ruth   Boston Red Sox   1917  2
+## 5       Babe     Ruth   Boston Red Sox   1918 11
+## 6       Babe     Ruth   Boston Red Sox   1919 29
+## 7       Babe     Ruth New York Yankees   1920 54
+## 8       Babe     Ruth New York Yankees   1921 59
+## 9       Babe     Ruth New York Yankees   1922 35
+## 10      Babe     Ruth New York Yankees   1923 41
+## 11      Babe     Ruth New York Yankees   1924 46
+## 12      Babe     Ruth New York Yankees   1925 25
+## 13      Babe     Ruth New York Yankees   1926 47
+## 14      Babe     Ruth New York Yankees   1927 60
+## 15      Babe     Ruth New York Yankees   1928 54
+## 16      Babe     Ruth New York Yankees   1929 46
+## 17      Babe     Ruth New York Yankees   1930 49
+## 18      Babe     Ruth New York Yankees   1931 46
+## 19      Babe     Ruth New York Yankees   1932 41
+## 20      Babe     Ruth New York Yankees   1933 34
+## 21      Babe     Ruth New York Yankees   1934 22
+## 22      Babe     Ruth    Boston Braves   1935  6</code></pre>
+<p>Let’s get the career homerun totals for players. Limit the display to just players who have hit atleast 600 homeruns. The highest homerun totals at the top and first and last names should be listed, as well as the homerun total.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT nameFirst,nameLast,sum(Batting.HR) FROM Batting INNER JOIN Master ON Batting.playerID=Master.playerID GROUP BY Master.playerID HAVING sum(Batting.HR)&gt;=600 ORDER BY sum(Batting.HR) DESC&quot;
+sqldf(query)</code></pre>
+<pre><code>##   nameFirst  nameLast sum(Batting.HR)
+## 1     Barry     Bonds             762
+## 2      Hank     Aaron             755
+## 3      Babe      Ruth             714
+## 4      Alex Rodriguez             696
+## 5    Willie      Mays             660
+## 6       Ken   Griffey             630
+## 7       Jim     Thome             612
+## 8     Sammy      Sosa             609</code></pre>
+<p>List all players with the first name Bob, who averaged more than one million dollars in salary over their career. Include last names. You will need to use the colnames(Salaries) table.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT nameFirst,nameLast,salary FROM Salaries INNER JOIN Master On Salaries.playerID=Master.playerID GROUP BY Master.playerID HAVING nameFirst='Bob' and salary&gt;=1000000&quot;
+sqldf(query)</code></pre>
+<pre><code>##    nameFirst  nameLast  salary
+## 1        Bob     Boone 1900000
+## 2        Bob     Howry 2000000
+## 3        Bob    Kipper 1000000
+## 4        Bob   Milacki 1180000
+## 5        Bob     Ojeda 1700000
+## 6        Bob   Stanley 1060000
+## 7        Bob Tewksbury 1750000
+## 8        Bob      Walk 2175000
+## 9        Bob     Welch 3450000
+## 10       Bob     Wells 1700000
+## 11       Bob   Wickman 6500000</code></pre>
 </div>
 </div>
 

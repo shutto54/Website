@@ -5,7 +5,7 @@ output: html_document
 
 ##Filtering Rows and Columns
 
-In SQL you can filter columns by using SELECT and rows by using WHERE.Let's look at an example using the Lahman baseball database. First we should load the Lahman package. We will also need the sqldf package.
+In SQL you can filter columns by using SELECT and rows by using WHERE. Let's look at an example using the Lahman baseball database. First we should load the Lahman package. We will also need the sqldf package.
 
 ```{r message=FALSE, warning=FALSE}
 library(Lahman)
@@ -154,6 +154,31 @@ query<-"SELECT playerID,name,Batting.yearID,Batting.HR FROM Batting INNER JOIN T
 sqldf(query)
 
 ```
+
+Babe Ruth, with first/last name, name (of the team), yearID, and HR.
+
+```{r message=FALSE,warning=FALSE}
+
+query<-"SELECT nameFirst,nameLast,name,Batting.yearID,Batting.HR FROM (Batting INNER JOIN Master ON Batting.playerID=Master.playerID) INNER JOIN Teams ON Batting.teamID=Teams.teamID and Batting.yearID=Teams.yearID WHERE Batting.playerID='ruthba01'"
+sqldf(query)
+
+```
+
+Let's get the career homerun totals for players. Limit the display to just players who have hit atleast 600 homeruns. The highest homerun totals at the top and first and last names should be listed, as well as the homerun total.
+
+```{r message=FALSE,warning=FALSE}
+query<-"SELECT nameFirst,nameLast,sum(Batting.HR) FROM Batting INNER JOIN Master ON Batting.playerID=Master.playerID GROUP BY Master.playerID HAVING sum(Batting.HR)>=600 ORDER BY sum(Batting.HR) DESC"
+sqldf(query)
+```
+
+List all players with the first name Bob, who averaged more than one million dollars in salary over their career. Include last names. You will need to use the colnames(Salaries) table.
+
+```{r message=FALSE,warning=FALSE}
+query<-"SELECT nameFirst,nameLast,avg(salary) FROM Salaries INNER JOIN Master On Salaries.playerID=Master.playerID GROUP BY Master.playerID HAVING nameFirst='Bob' and avg(salary)>=1000000 ORDER BY avg(salary) DESC"
+sqldf(query)
+```
+
+
 
 
 
